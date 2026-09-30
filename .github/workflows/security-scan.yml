@@ -1,0 +1,32 @@
+name: Security Scan
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    name: Terraform format & validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Check formatting
+        run: terraform fmt -check -recursive
+      - name: Validate both stacks
+        run: |
+          for dir in insecure secure; do
+            terraform -chdir="$dir" init -backend=false -input=false
+            terraform -chdir="$dir" validate
+          done
+
+  scan:
+    name: Checkov before/after scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Checkov
+        run: pip install checkov
+      - name: Scan insecure vs secure
+        run: bash scripts/scan.sh
