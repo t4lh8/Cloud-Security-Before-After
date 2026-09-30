@@ -1,6 +1,6 @@
 # ☁️ Cloud Security: Before vs After
 
-![Security Scan](https://github.com/t4lh8/cloud-security-before-after/actions/workflows/security-scan.yml/badge.svg)
+![Security Scan](https://github.com/t4lh8/Cloud-Security-Before-After/actions/workflows/security-scan.yml/badge.svg)
 ![Terraform](https://img.shields.io/badge/Terraform-HCL-7B42BC?logo=terraform)
 ![AWS](https://img.shields.io/badge/AWS-S3%20%7C%20EC2%20%7C%20RDS%20%7C%20IAM-FF9900)
 ![Checkov](https://img.shields.io/badge/scanned%20with-Checkov-blue)
@@ -78,8 +78,8 @@ The results table is posted to the Actions **job summary** page.
 No AWS account is needed. Nothing is deployed, the code is only scanned.
 
 ```bash
-git clone https://github.com/t4lh8/cloud-security-before-after.git
-cd cloud-security-before-after
+git clone https://github.com/t4lh8/Cloud-Security-Before-After.git
+cd Cloud-Security-Before-After
 pip install checkov
 
 checkov -d insecure        # see every issue in detail
