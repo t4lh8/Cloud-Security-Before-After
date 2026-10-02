@@ -35,13 +35,13 @@ flowchart LR
 
 | # | ❌ Insecure | Why it's dangerous | ✅ Secure fix | Checkov IDs |
 |---|---|---|---|---|
-| 1 | S3 bucket public, with a policy allowing `Principal: *` | Anyone can list and download all customer files, the cause of countless real data leaks | All 4 public access blocks on, HTTPS-only bucket policy | CKV_AWS_53–56, CKV2_AWS_6 |
+| 1 | S3 bucket public, with a policy allowing `Principal: *` | Anyone can list and download all customer files, the cause of countless real data leaks | All 4 public access blocks on, HTTPS-only bucket policy | CKV_AWS_53-56, CKV2_AWS_6 |
 | 2 | No S3 versioning | Deleted or ransomware-encrypted files are gone forever | Versioning + lifecycle rules | CKV_AWS_21, CKV2_AWS_61 |
 | 3 | No customer-managed encryption | No control over who can decrypt the data | SSE-KMS with a rotating customer-managed key | CKV_AWS_145 |
 | 4 | No S3 access logging | Impossible to investigate who accessed what | Access logs sent to a separate log bucket | CKV_AWS_18 |
 | 5 | SSH (22) and RDP (3389) open to `0.0.0.0/0` | Bots start brute-forcing within minutes | No admin ports at all. Access goes through **SSM Session Manager** | CKV_AWS_24, CKV_AWS_25 |
 | 6 | All outbound traffic allowed | Makes data exfiltration and malware callbacks easy | Only HTTPS out, and MySQL only inside the VPC | CKV_AWS_382 |
-| 7 | IAM policy `Action: "*"`, `Resource: "*"` | A hacked web server means a hacked AWS account | **Least privilege**: only its own bucket and key | CKV_AWS_62, 63, 286–290, 355, CKV2_AWS_40 |
+| 7 | IAM policy `Action: "*"`, `Resource: "*"` | A hacked web server means a hacked AWS account | **Least privilege**: only its own bucket and key | CKV_AWS_62, 63, 286-290, 355, CKV2_AWS_40 |
 | 8 | EC2 has a public IP | Server is directly exposed to the internet | Private subnet behind the load balancer | CKV_AWS_88 |
 | 9 | IMDSv1 enabled | SSRF can steal instance credentials ([Capital One 2019](https://krebsonsecurity.com/2019/08/what-we-can-learn-from-the-capital-one-hack/)) | IMDSv2 required, hop limit 1 | CKV_AWS_79 |
 | 10 | Unencrypted EBS disk | Snapshots and disks can be read if leaked | Encrypted with KMS | CKV_AWS_8 |
