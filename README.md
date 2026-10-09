@@ -20,7 +20,19 @@ The project has two layers:
 > ⚠️ `insecure/` is **deliberately vulnerable** and exists only to be scanned.
 > It has a built-in safety lock: `terraform plan` and `terraform apply` always fail on it.
 
-## The stack
+## The task
+
+> **Lock down a cloud account from scratch.** MFA on everything, least privilege, nothing public.
+> Screenshot the before and after and write up what you changed and why.
+
+| Requirement | Where it is |
+|---|---|
+| MFA on everything | No IAM users. Both roles can only be assumed with MFA used in the last hour (A1, A3). Root MFA is on the manual checklist. |
+| Least privilege | Read-only role for daily work, separate break-glass admin, web server role limited to its own bucket and key (A2, A4, #7) |
+| Nothing public | Account-wide S3 public access block, private EC2 and RDS, no SSH or RDP open (A6, #1, #5, #8, #12) |
+| Before and after | `insecure/` vs `secure/`, scanned by Checkov on every push (screenshot above) |
+| What changed and why | The two tables below, one row per change |
+
 
 A typical small web application on AWS:
 
